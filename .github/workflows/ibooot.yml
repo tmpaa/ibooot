@@ -17,6 +17,9 @@ jobs:
   build:
     strategy:
       max-parallel: 1
+    concurrency: 
+      group: ${{ github.head_ref }}
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current repo
