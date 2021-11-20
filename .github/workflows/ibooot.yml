@@ -1,0 +1,36 @@
+name: ibooot
+
+on:
+  push:
+    paths:
+    - 'main.py'
+  schedule:
+    - cron:  '*/20 * * * *'
+  workflow_dispatch:
+    inputs:
+      whotriggered:
+        description: 'Manual Trigger'
+        default: 'Why'
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v2
+      - name: Get current directory and files
+        run: |
+          pwd
+          ls
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Install Python Requirements
+        run: |
+          python --version
+          pip install -r requirements.txt
+      - name: Run Script
+        run: |
+          python insta_bot.py
