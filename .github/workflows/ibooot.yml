@@ -3,7 +3,7 @@ name: ibooot
 on:
   push:
     paths:
-    - 'main.py'
+    - 'insta_bot.py'
   schedule:
     - cron:  '*/20 * * * *'
   workflow_dispatch:
