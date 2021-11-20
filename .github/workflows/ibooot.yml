@@ -12,13 +12,11 @@ on:
         description: 'Manual Trigger'
         default: 'Why'
         required: false
-        
-concurrency:
-  group: ${{ github.head_ref }}
-  cancel-in-progress: true
 
 jobs:
   build:
+    strategy:
+      max-parallel: 1
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current repo
