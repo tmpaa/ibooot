@@ -12,6 +12,10 @@ on:
         description: 'Manual Trigger'
         default: 'Why'
         required: false
+        
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
