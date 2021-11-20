@@ -32,5 +32,8 @@ jobs:
           python --version
           pip install -r requirements.txt
       - name: Run Script
+        env:
+            my_username: ${{ secrets.MY_USERNAME }}
+            my_password: ${{ secrets.MY_PASSWORD }}
         run: |
           python insta_bot.py
