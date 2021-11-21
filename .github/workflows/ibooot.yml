@@ -12,6 +12,8 @@ on:
         description: 'Manual Trigger'
         default: 'Why'
         required: false
+        
+concurrency: staging_environment
 
 jobs:
   build:
