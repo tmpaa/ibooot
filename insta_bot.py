@@ -1,12 +1,31 @@
 from instapy import InstaPy
 import os
 from time import sleep
+import signal
+import threading
+import datetime
+
+class ExitCommand(Exception):
+    pass
+
+def signal_handler(signal, frame):
+    raise ExitCommand()
+
+def break_program_thread(afterTime):
+    stop_time = datetime.datetime.now() + datetime.timedelta(minutes=afterTime)
+    while datetime.datetime.now() <= stop_time:
+        pass
+    os.kill(os.getpid(), signal.SIGUSR1)
+
+signal.signal(signal.SIGUSR1, signal_handler)
+
+threading.Thread(target=break_program_thread, args=[30]).start()
 
 my_username = os.environ['MY_USERNAME']
 my_password = os.environ['MY_PASSWORD']
 
 session = InstaPy(username=my_username, 
-                  password=my_password, 
+                  password=my_password,
                   headless_browser=True)
 
 # Accept cookies quick and dirty fix.
