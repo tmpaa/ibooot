@@ -20,7 +20,7 @@ def break_program_thread(afterTime):
 
 signal.signal(signal.SIGUSR1, signal_handler)
 
-threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
+threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 4)]).start()
 
 my_username = os.environ['MY_USERNAME']
 my_password = os.environ['MY_PASSWORD']
