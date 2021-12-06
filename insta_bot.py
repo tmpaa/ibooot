@@ -6,6 +6,12 @@ import threading
 import datetime
 import random
 
+sleep_time = 7200 // random.randint(1, 2) # sleep randomly for 1 or 2 hours
+print(f"Insta bot is sleeping for: {sleep_time}")
+sleep(sleep_time)
+
+# ------------ Break execution Thread ------------------
+
 class ExitCommand(Exception):
     pass
 
@@ -20,7 +26,9 @@ def break_program_thread(afterTime):
 
 signal.signal(signal.SIGUSR1, signal_handler)
 
-threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 4)]).start()
+threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
+
+# --------------- Insta bot -------------------
 
 my_username = os.environ['MY_USERNAME']
 my_password = os.environ['MY_PASSWORD']
