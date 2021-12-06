@@ -6,7 +6,7 @@ import threading
 import datetime
 import random
 
-sleep_time = 7200 // random.randint(1, 2) # sleep randomly for 1 or 2 hours
+sleep_time = random.randint(3600, 7200) # sleep randomly for 1 to 2 hours
 print(f"Insta bot is sleeping for: {sleep_time}")
 sleep(sleep_time)
 
