@@ -6,57 +6,60 @@ import threading
 import datetime
 import random
 
-sleep_time = random.randint(3600, 7200) # sleep randomly for 1 to 2 hours
-print(f"Insta bot is sleeping for: {sleep_time}")
-sleep(sleep_time)
+current_datetime = datetime.datetime.now()
 
-# ------------ Break execution of the program - separate Thread ------------------
+if (current_datetime.hour >= 17) or (current_datetime.hour >= 0 and current_datetime.hour <= 2):
+    sleep_time = random.randint(1800, 5400) # sleep randomly for 30 minutes to 1.5 hours
+    print(f"Insta bot is sleeping for: {sleep_time}")
+    sleep(sleep_time)
 
-class ExitCommand(Exception):
-    pass
+    # ------------ Break execution of the program - separate Thread ------------------
 
-def signal_handler(signal, frame):
-    raise ExitCommand()
-
-def break_program_thread(afterTime):
-    stop_time = datetime.datetime.now() + datetime.timedelta(minutes=afterTime)
-    while datetime.datetime.now() <= stop_time:
+    class ExitCommand(Exception):
         pass
-    os.kill(os.getpid(), signal.SIGUSR1)
 
-signal.signal(signal.SIGUSR1, signal_handler)
+    def signal_handler(signal, frame):
+        raise ExitCommand()
 
-threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
+    def break_program_thread(afterTime):
+        stop_time = datetime.datetime.now() + datetime.timedelta(minutes=afterTime)
+        while datetime.datetime.now() <= stop_time:
+            pass
+        os.kill(os.getpid(), signal.SIGUSR1)
 
-# --------------- Insta bot -------------------
-print(f"Insta bot starts at: {datetime.datetime.now()}")
+    signal.signal(signal.SIGUSR1, signal_handler)
 
-my_username = os.environ['MY_USERNAME']
-my_password = os.environ['MY_PASSWORD']
+    threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
 
-session = InstaPy(username=my_username, 
-                  password=my_password,
-                  headless_browser=True)
+    # --------------- Insta bot -------------------
+    print(f"Insta bot starts at: {datetime.datetime.now()}")
 
-# Accept cookies quick and dirty fix.
-session.browser.get('https://instagram.com')
-session.browser.implicitly_wait(5)
-for element in session.browser.find_elements_by_tag_name('button'):
-    if element.text.strip().lower() == 'accept all':
-        element.click()
-        break
+    my_username = os.environ['MY_USERNAME']
+    my_password = os.environ['MY_PASSWORD']
 
-sleep(5)
+    session = InstaPy(username=my_username, 
+                      password=my_password,
+                      headless_browser=True)
 
-session.login()
+    # Accept cookies quick and dirty fix.
+    session.browser.get('https://instagram.com')
+    session.browser.implicitly_wait(5)
+    for element in session.browser.find_elements_by_tag_name('button'):
+        if element.text.strip().lower() == 'accept all':
+            element.click()
+            break
 
-session.set_quota_supervisor(enabled=True, peak_comments_daily=240, peak_comments_hourly=21)
-session.set_relationship_bounds(enabled=True, delimit_by_numbers=True, max_followers=10000)
+    sleep(5)
 
-#session.set_do_follow(True, percentage=70)
-session.set_do_comment(True, percentage=80)
-session.set_comments(["Nice!", "Awesome!", "Beautiful :heart_eyes:", "Wow!"])
+    session.login()
 
-session.like_by_tags(["nature", "nature_photography", "polishgirl"], amount=50)
+    session.set_quota_supervisor(enabled=True, peak_comments_daily=240, peak_comments_hourly=21)
+    session.set_relationship_bounds(enabled=True, delimit_by_numbers=True, max_followers=10000)
 
-session.end()
+    #session.set_do_follow(True, percentage=70)
+    session.set_do_comment(True, percentage=80)
+    session.set_comments(["Nice!", "Awesome!", "Beautiful :heart_eyes:", "Wow!"])
+
+    session.like_by_tags(["nature", "nature_photography", "polishgirl"], amount=50)
+
+    session.end()
