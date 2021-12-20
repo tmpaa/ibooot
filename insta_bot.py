@@ -6,7 +6,7 @@ import threading
 import datetime
 import random
 
-current_datetime = datetime.datetime.utcnow()
+current_datetime = datetime.datetime.now(datetime.timezone.utc)
 
 if (current_datetime.hour >= 16) or (current_datetime.hour >= 0 and current_datetime.hour <= 2):
     sleep_time = random.randint(1800, 5400) # sleep randomly for 30 minutes to 1.5 hours
@@ -32,7 +32,7 @@ if (current_datetime.hour >= 16) or (current_datetime.hour >= 0 and current_date
     threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
 
     # --------------- Insta bot -------------------
-    print(f"Insta bot starts at: {datetime.datetime.utcnow()}")
+    print(f"Insta bot starts at: {datetime.datetime.now(datetime.timezone.utc)}")
 
     my_username = os.environ['MY_USERNAME']
     my_password = os.environ['MY_PASSWORD']
