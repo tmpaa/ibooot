@@ -20,9 +20,9 @@ session = InstaPy(username=my_username,
 session.browser.get('https://instagram.com')
 session.browser.implicitly_wait(5)
 for element in session.browser.find_elements_by_tag_name('button'):
-     if element.text.strip().lower() == 'accept all':
-         element.click()
-         break
+    if element.text.strip().lower() == 'accept all':
+        element.click()
+        break
 
 sleep(5)
 
