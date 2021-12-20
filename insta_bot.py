@@ -6,7 +6,7 @@ import threading
 import datetime
 import random
 
-current_datetime = datetime.datetime.now()
+current_datetime = datetime.datetime.utcnow()
 
 if (current_datetime.hour >= 16) or (current_datetime.hour >= 0 and current_datetime.hour <= 2):
     sleep_time = random.randint(1800, 5400) # sleep randomly for 30 minutes to 1.5 hours
