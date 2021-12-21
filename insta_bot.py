@@ -6,6 +6,24 @@ import threading
 import datetime
 import random
 
+# ------------ Break execution of the program - separate Thread ------------------
+
+class ExitCommand(Exception):
+    pass
+
+def signal_handler(signal, frame):
+    raise ExitCommand()
+
+def break_program_thread(afterTime):
+    stop_time = datetime.datetime.now() + datetime.timedelta(minutes=afterTime)
+    while datetime.datetime.now() <= stop_time:
+        pass
+    os.kill(os.getpid(), signal.SIGUSR1)
+
+signal.signal(signal.SIGUSR1, signal_handler)
+
+threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
+
 # --------------- Insta bot -------------------
 print(f"Insta bot starts at: {datetime.datetime.now(datetime.timezone.utc)}")
 
