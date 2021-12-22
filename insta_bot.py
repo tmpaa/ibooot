@@ -7,7 +7,7 @@ import datetime
 import random
 
 current_datetime = datetime.datetime.now(datetime.timezone.utc)
-test_flag = True
+test_flag = False
 
 if test_flag or (current_datetime.hour >= 10 and current_datetime.hour <= 17):
     if test_flag == False:
