@@ -31,8 +31,6 @@ if test_flag or (current_datetime.hour >= 9 and current_datetime.hour <= 17):
 
     signal.signal(signal.SIGUSR1, signal_handler)
 
-    threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
-
     # --------------- Insta bot -------------------
     print(f"Insta bot starts at: {datetime.datetime.now(datetime.timezone.utc)}")
 
@@ -61,7 +59,8 @@ if test_flag or (current_datetime.hour >= 9 and current_datetime.hour <= 17):
     #session.set_do_follow(True, percentage=70)
     session.set_do_comment(True, percentage=80)
     session.set_comments(["Nice!", "Awesome!", "Beautiful :heart_eyes:", "Wow!"])
-
-    session.like_by_tags(["nature", "nature_photography", "polishgirl"], amount=50)
+    
+    threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
+    session.like_by_tags(["nature", "nature_photography", "polishgirl"], amount=20)
 
     session.end()
