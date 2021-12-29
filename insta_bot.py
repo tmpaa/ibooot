@@ -9,7 +9,7 @@ import random
 current_datetime = datetime.datetime.now(datetime.timezone.utc)
 test_flag = False
 
-if test_flag or (current_datetime.hour >= 9 and current_datetime.hour <= 17):
+if test_flag or (current_datetime.hour >= 9 and current_datetime.hour <= 16):
     if test_flag == False:
         sleep_time = random.randint(1800, 5400) # sleep randomly for 30 minutes to 1.5 hours
         print(f"Insta bot is sleeping for: {sleep_time}")
