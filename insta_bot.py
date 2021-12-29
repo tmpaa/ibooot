@@ -61,6 +61,6 @@ if test_flag or (current_datetime.hour >= 9 and current_datetime.hour <= 16):
     session.set_comments(["Nice!", "Awesome!", "Beautiful :heart_eyes:", "Wow!"])
     
     threading.Thread(target=break_program_thread, args=[60 // random.randint(2, 3)]).start()
-    session.like_by_tags(["nature", "nature_photography", "polishgirl"], amount=30)
+    session.like_by_tags(["nature", "nature_photography", "polishgirl"], amount=35)
 
     session.end()
